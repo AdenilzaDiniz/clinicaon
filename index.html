@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClinicaOnline</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
+  <main id="app" class="w-full max-w-4xl space-y-6">
+
+    <!-- 🔐 Login -->
+    <section id="loginScreen" class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md mx-auto">
+      <div class="text-center mb-6">
+        <img src="logo-clinica.png" alt="Logo" class="w-20 h-20 mx-auto mb-4 rounded-full shadow-md" />
+        <h1 class="text-2xl font-bold text-gray-800">ClinicaOnline</h1>
+        <p class="text-gray-600 mt-2">Sistema de Gestão Médica</p>
+      </div>
+      <form id="loginForm" class="space-y-4">
+        <input id="username" placeholder="Usuário" class="input w-full" required />
+        <input id="password" type="password" placeholder="Senha" class="input w-full" required />
+        <button type="submit" class="btn-primary w-full">Entrar</button>
+      </form>
+      <div class="mt-4 text-center">
+        <button id="showRegister" class="text-blue-600 text-sm">Não tem conta? Cadastre-se</button><br>
+        <button id="showRecovery" class="text-blue-600 text-sm mt-2">Esqueci minha senha</button>
+      </div>
+    </section>
+
+    <!-- 📝 Cadastro -->
+    <section id="registerScreen" class="hidden bg-white rounded-2xl shadow-xl p-8 w-full max-w-md mx-auto">
+      <h2 class="text-xl font-bold mb-4 text-center">Criar Novo Acesso</h2>
+      <form id="registerForm" class="space-y-4">
+        <input id="newUsername" placeholder="Usuário" class="input w-full" required />
+        <input id="newPassword" type="password" placeholder="Senha" class="input w-full" required />
+        <select id="userProfile" class="input w-full">
+          <option value="medico">Médico</option>
+          <option value="paciente">Paciente</option>
+        </select>
+        <button type="submit" class="btn-primary w-full">Cadastrar</button>
+      </form>
+    </section>
+
+    <!-- 🩺 Painel Médico -->
+    <section id="painelMedico" class="hidden bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-bold mb-4">Painel do Médico</h2>
+      <div class="space-x-2">
+        <button onclick="mostrarAba('cadastro')" class="btn-primary">Cadastrar Paciente</button>
+        <button onclick="mostrarAba('prontuario')" class="btn-primary">Novo Prontuário</button>
+        <button onclick="mostrarAba('busca')" class="btn-primary">Buscar Paciente</button>
+        <button onclick="mostrarAba('agendamento')" class="btn-primary">Agendar Consulta</button>
+        <button onclick="mostrarAgendamentos()" class="btn-primary">Ver Consultas</button>
+        <button onclick="mostrarAgendaSemanal()" class="btn-primary">Agenda Semanal</button>
+        <button onclick="mostrarAba('videoCall')" class="btn-secondary">Iniciar Vídeo Chamada</button>
+        <button onclick="mostrarPainelAdmin()" class="btn-secondary">Painel Administrativo</button>
+        <button onclick="logout()" class="btn-danger">Sair</button>
+      </div>
+    </section>
+
+    <!-- 👤 Painel Paciente -->
+    <section id="painelPaciente" class="hidden bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-bold mb-4">Área do Paciente</h2>
+      <button onclick="mostrarAba('agendamento')" class="btn-primary">Agendar Consulta</button>
+      <button onclick="mostrarAgendamentos()" class="btn-primary mt-2">Ver Meus Agendamentos</button>
+      <button onclick="mostrarPerfil()" class="btn-secondary mt-2">Meu Perfil</button>
+      <button onclick="mostrarAba('videoCall')" class="btn-secondary mt-2">Entrar em Vídeo Chamada</button>
+      <button onclick="logout()" class="btn-danger mt-2">Sair</button>
+    </section>
+
+    <!-- 📅 Agendamento -->
+    <section id="agendamento" class="hidden bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-bold mb-4">Agendar Consulta</h2>
+      <form id="formAgendamento" class="space-y-4">
+        <input type="text" id="agendamentoPaciente" placeholder="Nome do paciente" class="input w-full" required />
+        <input type="date" id="agendamentoData" class="input w-full" required />
+        <input type="time" id="agendamentoHora" class="input w-full" required />
+        <textarea id="agendamentoMotivo" placeholder="Motivo da consulta" class="input w-full" rows="3"></textarea>
+        <button type="submit" class="btn-primary w-full">Agendar</button>
+      </form>
+    </section>
+
+    <!-- 📹 Vídeo Chamada -->
+    <section id="videoCall" class="hidden bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-bold mb-4">Vídeo Chamada</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <video id="localVideo" autoplay playsinline muted class="w-full rounded-lg bg-black"></video>
+        <video id="remoteVideo" autoplay playsinline class="w-full rounded-lg bg-black"></video>
+      </div>
+      <div class="mt-4 flex space-x-2">
+        <button onclick="startCall()" class="btn-primary">Iniciar</button>
+        <button onclick="endCall()" class="btn-danger">Encerrar</button>
+      </div>
+      <p class="text-xs text-gray-500 mt-2">⚠️ Demonstração local — para funcionar entre dois usuários, configure um servidor de sinalização.</p>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
